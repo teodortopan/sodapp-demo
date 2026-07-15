@@ -24,7 +24,7 @@ The demo opens directly into the application with fictional records. All changes
 
 ### Run locally
 
-This repository uses Flutter `3.38.4`.
+This repository uses Flutter `3.44.0`.
 
 ```bash
 flutter pub get
