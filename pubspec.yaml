@@ -1,0 +1,45 @@
+name: sodapp_demo
+description: "Static portfolio demo of SODAPP's offline delivery workflow."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  flutter_localizations:
+    sdk: flutter
+  drift: ^2.22.1
+  geocoding: ^3.0.0
+  geolocator: ^13.0.2
+  google_maps_flutter: ^2.10.0
+  image: ^4.8.0
+  image_picker: ^1.1.2
+  intl: ^0.20.2
+  pdf: ^3.11.1
+  printing: ^5.13.3
+  qr_flutter: ^4.1.0
+  shared_preferences: ^2.5.4
+  uuid: ^4.5.1
+  web: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/app_icon.png
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto-Bold.ttf
+          weight: 700
