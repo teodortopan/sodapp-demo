@@ -4,9 +4,9 @@
 
 ## English (US)
 
-SODAPP Demo is a safe, static portfolio edition of a production delivery-management application. It presents the Spanish-language mobile workflow used to organize routes, customers, deliveries, payments, daily stock, and summaries.
+This repository is a browser-only demo of SODAPP, a delivery app I built for small distributors in Argentina. The interface is in Spanish because that is how the product is used. It covers the daily route, customer accounts, deliveries, payments, stock, expenses, and end-of-day summaries.
 
-The demo opens directly into the application with fictional records. All changes stay inside the browser's local Drift database and can be reset by clearing the site's local storage. It does not contain production credentials, customer data, Supabase access, payment integrations, messaging integrations, or native mobile projects.
+The demo opens with fictional records and saves changes in a local Drift database inside the browser. It does not connect to the production backend or contain customer data, credentials, payment integrations, messaging integrations, or the native mobile projects.
 
 > Every customer, address, phone number, delivery, payment, and balance shown here is fictional demo data.
 
@@ -14,6 +14,21 @@ The demo opens directly into the application with fictional records. All changes
   <img src="docs/screenshots/sodapp-demo-desktop.png" alt="SODAPP demo desktop presentation" width="58%">
   <img src="docs/screenshots/sodapp-demo-route-mobile.png" alt="SODAPP demo route on a mobile viewport" width="27%">
 </p>
+
+### How the production app works
+
+Drivers can spend hours without a reliable connection, so the mobile app reads and writes to Drift and SQLite first. Changes are queued on the device and synchronized with Supabase when a connection is available. Deleted records are kept as tombstones during synchronization so an older device cannot accidentally bring them back.
+
+The production app also connects to Mercado Pago and Argentina's AFIP electronic-invoicing system. Those requests go through authenticated backend functions; service credentials are never stored in the mobile client. The public demo keeps the user interface, local database, and selected business rules, but replaces the backend with fictional browser data.
+
+```mermaid
+flowchart LR
+    A[Flutter mobile app] --> B[Drift / SQLite]
+    B <--> C[Sync service]
+    C <--> D[Supabase / PostgreSQL]
+    D --> E[Backend functions]
+    E --> F[AFIP and Mercado Pago]
+```
 
 ### Highlights
 
@@ -47,9 +62,9 @@ The Cloudflare Pages artifact is generated in `build/web`. No environment variab
 
 Flutter Web, Dart, Drift, SQLite WASM, Material Design, and Cloudflare Pages.
 
-### Public demo boundary
+### What is left out
 
-This repository is an independent, history-free demo. It is not the production SODAPP repository and does not share its backend, deployment configuration, Git history, or secrets.
+This is an independent, history-free demo. The production backend, deployment configuration, Git history, customer data, and secrets are not included.
 
 ### License
 
@@ -61,11 +76,17 @@ No license is provided for this repository. Copyright © 2026 Teodor Topan. All 
 
 **Demo online:** [sodapp-demo.pages.dev](https://sodapp-demo.pages.dev/)
 
-SODAPP Demo es una edición estática y segura para portfolio de una aplicación productiva de gestión de repartos. La interfaz se mantiene en español y permite recorrer el flujo móvil para organizar rutas, clientes, entregas, pagos, carga diaria y resúmenes.
+Este repositorio es una demo para navegador de SODAPP, una aplicación de reparto que desarrollé para pequeños distribuidores de Argentina. La interfaz está en español porque así se usa el producto. Incluye el recorrido diario, las cuentas de los clientes, entregas, pagos, carga, gastos y resúmenes de cierre.
 
-La demo entra directamente a la aplicación con datos ficticios. Todos los cambios quedan solamente en la base local de Drift del navegador y se pueden reiniciar borrando los datos locales del sitio. El repositorio no incluye credenciales productivas, datos reales de clientes, acceso a Supabase, integraciones de pago, mensajería ni proyectos móviles nativos.
+La demo abre con datos ficticios y guarda los cambios en una base local de Drift dentro del navegador. No se conecta al backend productivo ni contiene datos de clientes, credenciales, integraciones de pago, mensajería o los proyectos móviles nativos.
 
 > Todos los clientes, domicilios, teléfonos, repartos, pagos y saldos que aparecen acá son datos ficticios de demostración.
+
+### Cómo funciona la aplicación productiva
+
+Los repartidores pueden pasar varias horas sin una conexión confiable, por eso la aplicación móvil primero lee y escribe en Drift y SQLite. Los cambios quedan en cola en el dispositivo y se sincronizan con Supabase cuando vuelve la conexión. Los registros eliminados se conservan como tombstones durante la sincronización para evitar que un dispositivo desactualizado los vuelva a crear por error.
+
+La versión productiva también se integra con Mercado Pago y el sistema de facturación electrónica de AFIP. Esas solicitudes pasan por funciones autenticadas del backend; las credenciales de los servicios nunca se guardan en el cliente móvil. La demo pública conserva la interfaz, la base local y algunas reglas del negocio, pero reemplaza el backend por datos ficticios en el navegador.
 
 ### Funcionalidades destacadas
 
@@ -97,9 +118,9 @@ El resultado para Cloudflare Pages se genera en `build/web` y no necesita variab
 
 Flutter Web, Dart, Drift, SQLite WASM, Material Design y Cloudflare Pages.
 
-### Límite de la demo pública
+### Qué no está incluido
 
-Este repositorio es una demo independiente y sin el historial de Git del producto. No es el repositorio productivo de SODAPP ni comparte su backend, configuración de despliegue, historial o secretos.
+Esta es una demo independiente y sin el historial de Git del producto. El backend productivo, la configuración de despliegue, el historial, los datos de clientes y los secretos no están incluidos.
 
 ### Licencia
 
